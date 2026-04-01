@@ -22,6 +22,3 @@ This segment hosts the baseline Deep Learning classification model designed as p
 * **Notebook**: `Classification.ipynb`
 * **Artifacts**: Detailed `results/` metrics evaluating classification precision.
 
----
-
-*This unified monorepo setup ensures that all methodologies, experiments, and results remain cleanly distinct, making the codebase easier to review, execute, and iterate upon.*
