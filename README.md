@@ -31,7 +31,7 @@ Ensure you have the following libraries installed:
 
 You can run the model directly inside a Jupyter-compatible environment like Kaggle or a local Jupyter Notebook server:
 
-1. Open `vae_lensing_fast.ipynb`.
+1. Open `VAE_DDPM.ipynb`.
 2. Configure the `DATA_DIR` variable in the notebook to point to your root directory containing the `.npy` files of gravitational lenses.
 3. Run all cells. The notebook will automatically train the model and save the best checkpoints.
 
