@@ -1,64 +1,27 @@
-# Variational Autoencoder for Strong Gravitational Lensing
+# ML4SCI Gravitational Lensing Monorepo
 
-This project features a fast and efficient implementation of a Variational Autoencoder (VAE) designed to model and generate images of strong gravitational lensing systems. Built in PyTorch, it generates synthetic lensing images and evaluates them against real samples using both computer vision and domain-specific physics metrics.
+Welcome to the unified repository for the Google Summer of Code (GSoC) ML4SCI project.
+This repository serves as a centralized monolithic hub for multiple independent models and investigations developed to simulate and classify strong gravitational lensing systems. 
 
-## Overview
+Each component is completely modular and contained within its respective subdirectory. You will find self-contained Jupyter Notebooks, metric reports, generated images, and detailed `README.md` documents tailored for each specific task in these folders.
 
-The VAE architecture compresses 64x64 single-channel (grayscale) images into a 128-dimensional latent space. It uses ResNet-style blocks (`ResBlock`) with Group Normalization and SiLU activations for robust feature extraction and high-quality image reconstruction. The loss function utilizes an L1 reconstruction loss combined with Kullback-Leibler (KL) divergence, tailored to produce sharper generated images compared to standard MSE loss. 
+## Project Structure
 
-## Key Features
+### 1. [Lensing Generation (DDPM & VAE)](./Lensing_Generation_DDPM/README.md)
+This directory contains the original work focused on synthetically generating simulated strong gravitational lenses using a Variational Autoencoder (VAE). It efficiently generates 64x64 lens approximations and scores them against strict physical constraints (Radial Profile RMSE, Power Spectrum RMSE, and FID quality scores).
+* **Notebook**: `VAE_DDPM.ipynb`
+* **Artifacts**: `vae_outputs/` (grids, loss curves, metric reports)
 
-- **Custom Dataloader (`LensingDataset`)**: Loads and preprocesses `.npy` image arrays, automatically handling resizing (to 64x64) and symmetric normalization `[-1, 1]`.
-- **Advanced VAE Architecture**:
-  - **Encoder**: Compresses input lenses using convolutional layers and ResBlocks into a multi-dimensional latent space representation (`mu` and `log_var`).
-  - **Decoder**: Reconstructs realistic lensing images from the sampled latent vectors using deterministic upsampling and transposed convolutions.
-- **Optimized Training**: Built-in support for PyTorch Automatic Mixed Precision (AMP) and Cosine Annealing learning rate scheduling for rapid convergence on GPU (`nvidiaTeslaT4` optimized but hardware-agnostic).
-- **Comprehensive Evaluation**:
-  - **Physics Metrics**: Computes **Radial Profile RMSE** and **Power Spectrum RMSE** to quantitatively compare the physical realism of the generated samples against real astronomical data.
-  - **FID Score**: Uses Fréchet Inception Distance to evaluate the perceptual quality of the generated distributions.
-- **Automated Visualization**: Generates loss curves, real vs. generated image grids, radial profile plots, and pixel intensity histograms.
+### 2. [Lensing Classification (Physics-Informed Neural Networks) ](./Lensing_Classification_PINN/README.md)
+This directory incorporates the robust PINN approach (Physics-Guided-ML) previously housed in a separate repository. This model injects physics domain constraints directly into the neural network architecture allowing the classifier to identify properties and lensing signatures with greater confidence and accuracy.
+* **Notebook**: `pinn_lensing_classifier.ipynb` 
+* **Artifacts**: Receiver Operating Characteristic (ROC) plots, training histories.
 
-## Requirements
+### 3. [Lensing Classification (Task 2 ResNet Base)](./Lensing_Classification_Task2/README.md)
+This segment hosts the baseline Deep Learning classification model designed as part of the primary ML4SCI application tasks (`Task2_Classification`). It tests standard classification architectures mapping input observational data onto discrete theoretical structures. 
+* **Notebook**: `Classification.ipynb`
+* **Artifacts**: Detailed `results/` metrics evaluating classification precision.
 
-Ensure you have the following libraries installed:
-- `torch` and `torchvision`
-- `numpy`
-- `matplotlib`
-- `scipy`
-- `tqdm`
+---
 
-## Usage
-
-You can run the model directly inside a Jupyter-compatible environment like Kaggle or a local Jupyter Notebook server:
-
-1. Open `VAE_DDPM.ipynb`.
-2. Configure the `DATA_DIR` variable in the notebook to point to your root directory containing the `.npy` files of gravitational lenses.
-3. Run all cells. The notebook will automatically train the model and save the best checkpoints.
-
-## Outputs and Checkpoints
-
-Output assets are generated and saved to the configured paths (`vae_outputs/` directory by default).
-
-### Quantitative Results
-After training for 60 epochs (Latent Dim: 128), the Variational Autoencoder achieved the following metrics on the evaluation set (256 samples):
-- **Best Validation Loss:** 0.0091
-- **Fréchet Inception Distance (FID):** 76.57
-- **Radial Profile RMSE:** 0.1110
-- **Power Spectrum RMSE:** 0.9085
-
-### Qualitative Results
-
-#### Real vs. Generated Comparison
-A visual comparison of actual dataset lenses versus the VAE-generated lenses.
-![Real vs Generated](vae_outputs/comparison.png)
-
-#### Training Consistency
-Training and validation loss progression over 60 epochs.
-![Loss Curve](vae_outputs/loss_curve.png)
-
-#### Statistical Distributions
-Plots matching the physical and statistical distributions of real and fake images.
-![Radial Profiles](vae_outputs/radial_profiles.png)
-![Pixel Distribution](vae_outputs/pixel_distribution.png)
-
-*Additional individual generated images and grids are saved in the `vae_outputs/` directory and `vae_outputs/generated_individual/`.*
+*This unified monorepo setup ensures that all methodologies, experiments, and results remain cleanly distinct, making the codebase easier to review, execute, and iterate upon.*
