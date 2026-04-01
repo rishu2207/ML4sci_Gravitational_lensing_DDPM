@@ -1,0 +1,14 @@
+# Handle PyTorch models with Git LFS
+*.pt filter=lfs diff=lfs merge=lfs -text
+*.pth filter=lfs diff=lfs merge=lfs -text
+
+# Jupyter notebooks
+*.ipynb text eol=lf
+# Python scripts
+*.py text eol=lf
+# Markdown files
+*.md text eol=lf
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary

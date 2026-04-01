@@ -1,0 +1,12 @@
+# Dataset directories
+train/
+val/
+test/
+
+# macOS
+.DS_Store
+
+# Python and Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
