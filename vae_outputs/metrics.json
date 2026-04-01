@@ -1,0 +1,10 @@
+{
+  "model": "Variational Autoencoder (VAE)",
+  "architecture": "ResBlock encoder-decoder, latent_dim=128",
+  "epochs_trained": 60,
+  "best_val_loss": 0.009125,
+  "num_samples_eval": 256,
+  "fid": 76.5697,
+  "radial_profile_rmse": 0.111049,
+  "power_spectrum_rmse": 0.908492
+}
